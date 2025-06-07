@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Dia1 {
+public class Dia1_2 {
     public static void main(String[] args) {
         List<String> nombres = List.of(
                 "Ana", "Pedro", "Carlos", "Lucía", "Ana", "Miguel", "Carla", "Juan", "María", "Luis", "Lucía"
@@ -78,14 +78,17 @@ public class Dia1 {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
-        System.out.println(f11);
         // 🔹 12. ["anA", "ordeP", ...]
         // 💡 Muestra los nombres con letras invertidas
-
+        List<String> f12 = nombres.stream()
+                        .map(a -> new StringBuilder(a).reverse().toString())
+                                .collect(Collectors.toList());
 
         // 🔹 13. {3=[Ana], 4=[Juan, Luis], 5=[Pedro, Lucía, Carla, María], 6=[Carlos, Miguel]}
         // 💡 Agrupa los nombres por longitud
-
+        Map<Integer, List<String>> f13 = nombres.stream()
+                        .collect(Collectors.groupingBy(a-> a.length()));
+        System.out.println(f13);
 
         // 🔹 14. "Ana,Pedro,Carlos,Lucía,Ana,Miguel,Carla,Juan,María,Luis,Lucía"
         // 💡 Convierte la lista a una sola cadena separada por comas
