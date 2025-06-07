@@ -1,6 +1,8 @@
 package practica;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Dia1 {
     public static void main(String[] args) {
@@ -45,28 +47,38 @@ public class Dia1 {
         // 🔹 6. 11
         // 💡 Cuenta cuántos nombres hay en total
         int f6 = (int) nombres.stream().count();
-        System.out.println(f6);
 
         // 🔹 7. true
         // 💡 ¿Hay algún nombre que tenga exactamente 5 letras?
-
+        boolean f7 = nombres.stream()
+                .anyMatch(a -> a.length() == 5);
 
         // 🔹 8. true
         // 💡 ¿Todos los nombres tienen más de 2 letras?
-
+        boolean f8 = nombres.stream()
+                .allMatch(a -> a.length() > 2);
 
         // 🔹 9. Ana
         // 💡 Muestra el primer nombre de la lista (si existe)
-
+        String f9 = nombres.stream().findFirst().get();
 
         // 🔹 10. ["Ana", "Pedro", "Carlos"]
         // 💡 Devuelve una lista con los 3 primeros nombres sin repetir
-
+        List<String> f10 = nombres.stream()
+                .distinct()
+                .limit(3)
+                .collect(Collectors.toList());
 
         // 🔹 11. ["Ana", "Lucía"]
         // 💡 Muestra los nombres duplicados (los que aparecen más de una vez)
+        List<String> f11 = nombres.stream()
+                .collect(Collectors.groupingBy(nombre->nombre, Collectors.counting()))
+                .entrySet().stream()
+                .filter(e->e.getValue() > 1)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
 
-
+        System.out.println(f11);
         // 🔹 12. ["anA", "ordeP", ...]
         // 💡 Muestra los nombres con letras invertidas
 
