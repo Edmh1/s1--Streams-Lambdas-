@@ -1,10 +1,9 @@
 package practica;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class Dia1_2 {
+public class Dia1_2_3 {
     public static void main(String[] args) {
         List<String> nombres = List.of(
                 "Ana", "Pedro", "Carlos", "Lucía", "Ana", "Miguel", "Carla", "Juan", "María", "Luis", "Lucía"
@@ -88,34 +87,54 @@ public class Dia1_2 {
         // 💡 Agrupa los nombres por longitud
         Map<Integer, List<String>> f13 = nombres.stream()
                         .collect(Collectors.groupingBy(a-> a.length()));
-        System.out.println(f13);
 
         // 🔹 14. "Ana,Pedro,Carlos,Lucía,Ana,Miguel,Carla,Juan,María,Luis,Lucía"
         // 💡 Convierte la lista a una sola cadena separada por comas
-
+        String f14 = nombres.stream()
+                        .collect(Collectors.joining(","));
 
         // 🔹 15. "Miguel"
         // 💡 Muestra el nombre más largo de la lista
-
+        Optional<String> f15 = nombres.stream()
+                        .max(Comparator.comparingInt(String::length));
 
         // 🔹 16. ["ANA", "CARLA", "CARLOS", "JUAN", "LUCÍA", "LUIS", "MARÍA", "MIGUEL", "PEDRO"]
         // 💡 Muestra todos los nombres sin repetir, en mayúsculas y ordenados
+        Set<String> f16 = nombres.stream()
+                .map(a-> a.toUpperCase())
+                .sorted()
+                .collect(Collectors.toSet());
 
 
         // 🔹 17. ["Ana", "Juan", "Luis", "Lucía", "Carla"]
         // 💡 Muestra los 5 nombres más cortos, sin duplicados
+        List<String> f17 = nombres.stream()
+                    .distinct()
+                .sorted(Comparator.comparingInt(String::length))
+                    .limit(5).collect(Collectors.toList());
 
 
         // 🔹 18. ["Lucía", "Miguel", "María", "Luis"]
         // 💡 Devuelve los nombres que contienen la letra "i"
+        List<String> f18 = nombres.stream()
+                .distinct()
+                .filter(a -> a.contains("i"))
+                .collect(Collectors.toList());
 
 
         // 🔹 19. [3, 5, 6, 5, 3, 6, 5, 4, 5, 4, 5]
         // 💡 Devuelve una lista con la longitud de cada nombre
-
+        List<Integer> f19 = nombres.stream()
+                .map(a -> a.length())
+                        .collect(Collectors.toList());
 
         // 🔹 20. 5.0
         // 💡 Calcula la longitud promedio de los nombres únicos
-
+        double f20 = nombres.stream()
+                .distinct()
+                .mapToInt(String::length)
+                .average()
+                .orElse(0);
+        System.out.println(f20);
     }
 }
